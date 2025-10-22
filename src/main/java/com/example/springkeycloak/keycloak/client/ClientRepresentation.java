@@ -1,4 +1,4 @@
-package com.example.springkeycloak.clientrepresentation;
+package com.example.springkeycloak.keycloak.client;
 
 import java.util.ArrayList;
 
@@ -33,4 +33,3 @@ public class ClientRepresentation {
   public boolean fullScopeAllowed;
   public float nodeReRegistrationTimeout;
 }
-

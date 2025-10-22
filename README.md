@@ -4,9 +4,11 @@ A Spring Boot application integrated with Keycloak for authentication and author
 
 ### Overview
 
-This project demonstrates the integration of Keycloak (an open-source Identity and Access Management solution) with a Spring Boot application, providing secure authentication and authorization capabilities.
+This project demonstrates the integration of Keycloak (an open-source Identity and Access Management solution) with a
+Spring Boot application, providing secure authentication and authorization capabilities.
 
 ### Technologies
+
 - **Java 21** - Latest LTS version of Java
 - **Spring Boot** - Application framework
 - **Spring OAuth Resource Server** - OAuth2 resource server support
@@ -17,6 +19,7 @@ This project demonstrates the integration of Keycloak (an open-source Identity a
 - **Gradle** - Build tool
 
 ## Prerequisites
+
 - Java 21 or higher
 - Gradle (or use the included wrapper)
 - Keycloak server (running instance)
@@ -44,28 +47,39 @@ java -jar build/libs/spring-keycloak-*.jar
 
 ## Configuration
 
-Configuring requires that a Datasource and Keycloak are both already configured. 
+Configuring requires that a Datasource and Keycloak are both already configured.
 
-The datasource and Keycloak details can be configured in `application.properties` or `application.yml`. Environment variable overrides are also supported.
+The datasource and Keycloak details can be configured in `application.properties` or `application.yml`. Environment
+variable overrides are also supported.
 
-The examples are using PostgreSQL as the database, but you can change it to any other supported database by updating the datasource URL, username, and password.
+The examples are using PostgreSQL as the database, but you can change it to any other supported database by updating the
+datasource URL, username, and password.
 Postgresql is running locally on port 5432.
 
-The Keycloak server is assumed to be running locally on port 9090 with a realm named `demo`. The .well-known/openid-configuration endpoint is also assumed to be running on port 9090. This will provide the necessary information for the application to communicate with Keycloak.
+The Keycloak server is assumed to be running locally on port 9090 with a realm named `demo`. The
+.well-known/openid-configuration endpoint is also assumed to be running on port 9090. This will provide the necessary
+information for the application to communicate with Keycloak.
 
 #### demo .well-known/openid-configuration
+
 ```
 Paste into browser:
 http://localhost:9090/realms/demo/.well-known/openid-configuration
 ```
+
 #### demo environment variables
+
 ```
-SPRING_APPLICATION_NAME=spring-keycloak;SPRING_DATASOURCE_JPA_HIBERNATE_DDL-AUTO=update;SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/spring-keycloak;SPRING_DATASOURCE_USERNAME=postgres;SPRING_DATASOURCE_PASSWORD=password;SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI=http://localhost:9090/realms/demo;SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI=http://localhost:9090/realms/demo/protocol/openid-connect/certs;KEYCLOAK_REALM=demo;KEYCLOAK_AUTH-SERVER-URL=http://localhost:9090;KEYCLOAK_REALM=demo;CORS_ALLOWED-ORIGINS=http://localhost:4200;
+SPRING_APPLICATION_NAME=spring-keycloak;SPRING_JPA_SHOW-SQL=true;SPRING_JPA_GENERATE-DDL=true;SPRING_JPA_HIBERNATE_DDL-AUTO=update;SPRING_DATASOURCE_URL=jdbc:postgresql://localhost:5432/spring-keycloak;SPRING_DATASOURCE_USERNAME=postgres;SPRING_DATASOURCE_PASSWORD=password;SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_ISSUER-URI=http://localhost:9090/realms/demo;SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI=http://localhost:9090/realms/demo/protocol/openid-connect/certs;KEYCLOAK_REALM=demo;KEYCLOAK_AUTH-SERVER-URL=http://localhost:9090;KEYCLOAK_REALM=demo;CORS_ALLOWED-ORIGINS=http://localhost:4200;
 ```
+
 #### Environment Variables
+
 ```
 SPRING_APPLICATION_NAME=
-SPRING_DATASOURCE_JPA_HIBERNATE_DDL-AUTO=
+SPRING_JPA_SHOW-SQL=
+SPRING_JPA_GENERATE-DDL=
+SPRING_JPA_HIBERNATE_DDL-AUTO=
 SPRING_DATASOURCE_URL=
 SPRING_DATASOURCE_USERNAME=
 SPRING_DATASOURCE_PASSWORD=
@@ -75,10 +89,14 @@ KEYCLOAK_REALM=
 KEYCLOAK_AUTH-SERVER-URL=
 CORS_ALLOWED-ORIGINS=
 ```
+
 #### application.properties
+
 ```
 spring.application.name=
-spring.datasource.jpa.hibernate.ddl-auto=
+spring.jpa.show-sql=
+spring.jpa.generate-ddl=
+spring.jpa.hibernate.ddl-auto=
 spring.datasource.url=
 spring.datasource.username=
 spring.datasource.password=
@@ -88,15 +106,19 @@ keycloak.realm=
 keycloak.auth-server-url=
 cors.allowed-origins=
 ```
+
 #### application.yml
+
 ```
 spring:
   application:
     name: 
-  datasource:
-    jpa:
+  jpa:
+    show-sql: 
+    generate-ddl: 
       hibernate:
         ddl-auto: 
+  datasource:
     url: 
     username: 
     password: 
@@ -111,13 +133,16 @@ keycloak:
   auth-server-url: 
 cors.allowed-origins:
 ```
+
 ## Testing
 
-The project includes an `spring-keycloak.http` file for testing HTTP endpoints. You can use this with HTTP client plugins in your IDE.
+The project includes an `spring-keycloak.http` file for testing HTTP endpoints. You can use this with HTTP client
+plugins in your IDE.
 
 ## Development
 
 This project uses:
+
 - Gradle for dependency management and build automation
 - Git for version control (see `.gitignore` for excluded files)
 
@@ -132,5 +157,6 @@ This project uses:
 ---
 
 For more information about Keycloak integration with Spring Boot, refer to the official documentation:
+
 - [Keycloak Documentation](https://www.keycloak.org/documentation)
 - [Spring Security](https://spring.io/projects/spring-security)

@@ -1,36 +1,32 @@
-package com.example.springkeycloak.clientrepresentation;
+package com.example.springkeycloak.keycloak.client;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-@RestController
-@RequestMapping("/clients")
-class ClientRepresentationController {
+@Service
+class ClientRepresentationService {
   @Value("${keycloak.auth-server-url}")
   private String authServerUrl;
 
   @Value("${keycloak.realm}")
   private String realm;
 
-  @GetMapping("/{id}")
-  public ClientRepresentation getClient(
-      @RequestHeader("Authorization") String authorizationHeader, @PathVariable String id) {
+  public ClientRepresentation getClientById(String accessToken, String id) {
     return RestClient.create()
         .get()
         .uri(authServerUrl + "/admin/realms/" + realm + "/clients/" + id)
-        .header("Authorization", authorizationHeader)
+        .header("Authorization", accessToken)
         .retrieve()
         .body(ClientRepresentation.class);
   }
 
-  @GetMapping
-  public ClientRepresentation[] getAll(@RequestHeader("Authorization") String authorizationHeader) {
+  public ClientRepresentation[] getClients(String accessToken) {
     return RestClient.create()
         .get()
         .uri(authServerUrl + "/admin/realms/" + realm + "/clients")
-        .header("Authorization", authorizationHeader)
+        .header("Authorization", accessToken)
         .retrieve()
         .body(new ParameterizedTypeReference<>() {});
   }

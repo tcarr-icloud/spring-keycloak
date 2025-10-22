@@ -1,36 +1,32 @@
-package com.example.springkeycloak.rolerepresentation;
+package com.example.springkeycloak.keycloak.role;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 
-@RestController
-@RequestMapping("/roles")
-class RoleRepresentationController {
+@Service
+class RoleRepresentationService {
   @Value("${keycloak.auth-server-url}")
   private String authServerUrl;
 
   @Value("${keycloak.realm}")
   private String realm;
 
-  @GetMapping("/{id}")
-  public RoleRepresentation getRole(
-      @RequestHeader("Authorization") String authorizationHeader, @PathVariable String id) {
+  public RoleRepresentation getRoleById(String accessToken, String id) {
     return RestClient.create()
         .get()
         .uri(authServerUrl + "/admin/realms/" + realm + "/roles/" + id)
-        .header("Authorization", authorizationHeader)
+        .header("Authorization", accessToken)
         .retrieve()
         .body(RoleRepresentation.class);
   }
 
-  @GetMapping
-  public RoleRepresentation[] getRoles(@RequestHeader("Authorization") String authorizationHeader) {
+  public RoleRepresentation[] getRoles(String accessToken) {
     return RestClient.create()
         .get()
         .uri(authServerUrl + "/admin/realms/" + realm + "/roles")
-        .header("Authorization", authorizationHeader)
+        .header("Authorization", accessToken)
         .retrieve()
         .body(new ParameterizedTypeReference<>() {});
   }
