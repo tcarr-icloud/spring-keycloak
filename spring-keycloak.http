@@ -21,3 +21,7 @@ Content-Type: application/json
 Authorization: Bearer {{access_token}}
 
 ###
+GET http://localhost:9090/realms/demo/.well-known/openid-configuration
+Content-Type: application/json
+
+###
