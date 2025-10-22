@@ -31,9 +31,7 @@ class UserService {
     Map<String, UserRepresentation> userRepresentations = new HashMap<>();
     Arrays.stream(keycloakUserService.getUsers(authorizationHeader))
         .forEach(
-            (userRepresentation) -> {
-              userRepresentations.put(userRepresentation.id, userRepresentation);
-            });
+            (userRepresentation) -> userRepresentations.put(userRepresentation.id, userRepresentation));
     return userRepository.findAll().stream()
         .map(user -> toUserDTO(user, userRepresentations.get(user.getKeycloakUserId())))
         .distinct()

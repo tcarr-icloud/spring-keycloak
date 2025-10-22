@@ -7,13 +7,13 @@ public class ClientRepresentation {
   public String clientId;
   public String name;
   public String rootUrl;
-  public ArrayList<String> redirectUris = new ArrayList<String>();
-  public ArrayList<String> webOrigins = new ArrayList<String>();
+  public ArrayList<String> redirectUris = new ArrayList<>();
+  public ArrayList<String> webOrigins = new ArrayList<>();
   public Attributes AttributesObject;
   public AuthenticationFlowBindingOverrides AuthenticationFlowBindingOverridesObject;
-  public ArrayList<Object> protocolMappers = new ArrayList<Object>();
-  public ArrayList<String> defaultClientScopes = new ArrayList<String>();
-  public ArrayList<String> optionalClientScopes = new ArrayList<String>();
+  public ArrayList<Object> protocolMappers = new ArrayList<>();
+  public ArrayList<String> defaultClientScopes = new ArrayList<>();
+  public ArrayList<String> optionalClientScopes = new ArrayList<>();
   public Access AccessObject;
   public String baseUrl;
   public boolean surrogateAuthRequired;
