@@ -2,9 +2,7 @@ package com.example.springkeycloak.users;
 
 import com.example.springkeycloak.keycloak.user.UserRepresentation;
 import com.example.springkeycloak.keycloak.user.UserRepresentationService;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -33,18 +31,25 @@ class UserService {
         .forEach(
             (userRepresentation) ->
                 userRepresentations.put(userRepresentation.id, userRepresentation));
+
     return userRepository.findAll().stream()
-        .map(user -> toUserDTO(user, userRepresentations.get(user.getKeycloakUserId())))
+        .map(
+            user -> {
+              UserRepresentation userRepresentation =
+                  userRepresentations.get(user.getKeycloakUserId());
+              return toUserDTO(user, userRepresentation);
+            })
         .distinct()
         .toArray(UserDTO[]::new);
   }
 
   private UserDTO toUserDTO(User user, UserRepresentation userRepresentation) {
     if (userRepresentation == null) {
-      return new UserDTO(user.getId(), null, null, null, null, null);
+      return new UserDTO(user.getId(), null, null, null, null, null, null);
     } else {
       return new UserDTO(
           user.getId(),
+          userRepresentation.id,
           userRepresentation.username,
           userRepresentation.firstName,
           userRepresentation.lastName,
